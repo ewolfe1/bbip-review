@@ -1,0 +1,67 @@
+body {
+        font-family: Arial;
+        padding: 20px 5% 20px 3%;
+}
+
+#facet-info {
+    margin: 3em auto;
+    width: 25%
+}
+
+.item {
+    width: 90%;
+    margin: 1em auto;
+    border-left: 1px solid #bebebe;
+    padding: 1em 2em;
+}
+.title {
+    font-style: italic;
+}
+
+.label {
+    font-size: larger;
+    padding-bottom: .2em
+}
+.facetRow, .linksRow {
+    display: table-row;
+}
+.topicFacet {
+    display: table-cell;
+    padding: 1em .5em;
+    margin: auto
+}
+
+.topic {
+    padding-left: .5em
+}
+
+.topics, .features {
+    display: table-cell;
+    padding: 1em .5em;
+    border-spacing: 0 2em;
+    border-collapse: separate;
+    border-radius: 20px;
+    border: 1px solid #b1d9f4;
+}
+.table {
+    width: auto !important;
+    text-align: center;
+    margin: 1em;
+}
+/* Evenly spaces divs within a larger container */
+#outer {margin:auto; text-align:center; overflow:hidden; display:table-row}
+.inner {
+    display:table-cell;
+    margin:auto;
+    padding: 1em;
+    /*vertical-align: middle;*/
+    overflow: hidden;
+    position:relative;
+    width: 200px
+    }
+* html .inner {display:inline}/* for ie*/
+html>body #outer {display:table}/*for mozilla */
+html>body .inner {display:table;float:left}/*for mozilla */
+@media all and (min-width: 0px){/* opera 7 styles */
+html>body .inner {display:inline-block;float:none;}
+}
