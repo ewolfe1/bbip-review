@@ -41,6 +41,7 @@ def item_head():
     with head_cols[0]:
         st.header(f'{state.book_md.Title}')
         st.write(f'*{state.book_md.Author} ({state.book_md.Date})*')
+        st.write(f'BBIP ID: {state.book_md.BBIP_ID}')
     with head_cols[1]:
 
         with st.expander('About this data'):
@@ -203,7 +204,13 @@ def book_sum(t, df):
 
                 tdf = df[~df.topic.isnull()]
                 top_all, top_unique, p = top_cts(tdf)
-                st.markdown(f'All identified topics occur **{top_all}** times in **{top_unique:,}** sentences, or **{p:.1f}%** of the text.')
+                st.markdown(f'All topics: **{top_all:,}** occurrences in **{top_unique:,}** sentences (**{p:.1f}%** of the text)')
+                top_list = ''
+                for t in tdf.topic.unique():
+                    top_all, top_unique, p = top_cts(tdf[tdf.topic==t])
+                    top_list += f'* ***{t}***: **{top_all:,}** occurrences in **{top_unique:,}** sentences (**{p:.1f}%** of the text)\n'
+                st.write(top_list)
+
 
     if t == '*':
 
