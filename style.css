@@ -1,0 +1,26 @@
+.stApp > body {
+    color: #fff;
+    background-color: #4F8BF9;
+}
+
+button {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    color: black !important;
+    text-decoration: none;
+    cursor: pointer;
+    border: none !important;
+}
+button:hover {
+    text-decoration: none;
+    color: black !important;
+}
+button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    color: black !important;
+}
+ul {
+    margin-top: -.5px !important;
+}

@@ -1,0 +1,11 @@
+streamlit
+pandas
+natsort
+st_click_detector
+plotly
+matplotlib
+wordcloud
+re
+ast
+io
+colorlover
