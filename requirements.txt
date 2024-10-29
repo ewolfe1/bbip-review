@@ -5,6 +5,4 @@ st_click_detector
 plotly
 matplotlib
 wordcloud
-ast
-io
 colorlover
