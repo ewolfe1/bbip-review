@@ -8,12 +8,12 @@ from scripts import tools
 tools.init()
 tools.get_data()
 
-st.header('HBW - 40 books review')
+st.header('History of Black Writing - text review')
 
-st.write('*Click any title or BBIP ID to see more details.*')
-content = tools.display_table()
-clicked = cd(content)
+st.write('*Select any row to see a detailed topic analysis. Select any column header to sort the data.*')
 
-if clicked:
-    state.bbipid = clicked
+clicked = tools.display_table()
+
+if len(clicked.selection['rows']) > 0:
+    state.bbipid = state.inventory.iloc[clicked.selection['rows'][0]]['BBIP_ID']
     st.switch_page("itemview.py")

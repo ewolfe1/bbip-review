@@ -25,23 +25,128 @@ def init():
     with open(os.path.abspath('./style.css')) as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+def get_stats(df):
+
+    # get some relative freqs
+    for t in ['music','violence','religion']:
+
+        nm = t.capitalize()
+        t = f'{t}_words'
+
+        # Standard z-score for raw topic counts
+        mean = df[t].mean()
+        std = df[t].std()
+        df[f'{nm} (Z raw)'] = (df[t] - mean) / std
+
+        # Frequency per 1,000 words
+        df[f'{nm} (% per 1000)'] = (df[t] / df['total_words']) * 1000
+
+        # Z-score for relative frequency
+        rel = df[t] / df['total_words']
+        rel_mean = rel.mean()
+        rel_std = rel.std()
+        df[f'{nm} (Z rel)'] = (rel - rel_mean) / rel_std
+
+    return df
+
 # @st.cache_resource
 def get_data():
     # set book metadata
     df = pd.read_csv('data/metadata.csv')
-    df = df[~df['music'].isnull()].copy()
-    for c in ['music','violence','religion']:
-        df[c] = df[c].astype(int)
-    for c in ['Date','BBIP_ID']:
-        df[c] = df[c].astype(int).astype(str)
+    if 'Unnamed: 0' in df.columns:
+        df.drop(['Unnamed: 0'], inplace=True, axis=1)
+    # df = df[~df['music'].isnull()].copy()
+    for c in df.columns:
+        if c in ['Date','BBIP_ID']:
+            df[c] = df[c].astype(int).astype(str)
+        elif c == 'alt_BBIP_IDs':
+            continue
+        else:
+            try:
+                df[c] = df[c].astype(int)
+            except Exception as e:
+                continue
+
+    df['alt_BBIP_IDs'] = df['alt_BBIP_IDs'].apply(lambda x: str(x).split('.')[0] if pd.notna(x) and not isinstance(x, str) else x)
+
+    # calculate frequencies
+    df = get_stats(df)
+
+    col_map = {'total_words':'Total words', 'total_sents':'Total sentences','topic_words':'Topic words (all)','topic_sents':'Topic sentences (all)','religion_words':'Religion (WC)','religion_sents':'Religion (SC)','violence_words':'Violence (WC)','violence_sents':'Violence (SC)','music_words':'Music (WC)','music_sents':'Music (SC)','alt_BBIP_IDs':'Alt. BBIP IDs','Coll_40_books':'40 books'}
+    df.rename(columns=col_map, inplace=True)
+
+    state.inventory_full = df
     state.inventory = df
+    state.default_cols = ['Title','Author','Date','BBIP_ID','Alt. BBIP IDs','Total words']
+
+
+def set_colors(df):
+
+    tops = natsorted(df[~df.topic.isnull()].topic.unique())
+    state.colorlist = {topic: colorscale[i] for i, topic in enumerate(tops)}
+
+def filter_inv():
+
+    # first, set the base inventory
+    if 'display40' not in state:
+        state.display40 = 'All titles'
+    if state.display40 == 'All titles':
+        state.inventory = state.inventory_full
+    else:
+        state.inventory = state.inventory_full[state.inventory_full['40 books']=='Y']
+
+    # search filter
+    if 'search' not in state:
+        state.search = ''
+    state.inventory = state.inventory[state.inventory.Title.str.contains(state.search, na=False, case=False) | state.inventory.Author.str.contains(state.search, na=False, case=False) | state.inventory.BBIP_ID.str.contains(state.search, na=False, case=False)]
+
+    # topics
+    if 'topics' not in state:
+        state.topics = 'All (Z rel)'
+    if 'All' in state.topics:
+        stat = re.findall(r'\((.*?)\)', state.topics)[0]
+        state.display_cols = state.default_cols + [f'Music ({stat})',f'Religion ({stat})',f'Violence ({stat})']
+    else:
+        state.display_cols = state.default_cols + [c for c in state.inventory.columns if state.topics in c]
+    state.inventory = state.inventory[state.display_cols]
+
+# @st.cache_resource
+def display_table():
+
+    filter_cols = st.columns(3)
+    with filter_cols[0]:
+        state.display40 = st.pills('*Texts to display*', ['All titles', '40 books'], default=['All titles'], key='dt', selection_mode='single')
+
+    stats_desc = """**WC** - The raw count of words matching the topic within the text.\n
+**Z raw** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
+**% per 1,000** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
+**Z rel** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset.\n"""
+
+    with filter_cols[1]:
+        state.topics = st.pills('*Topic stats to display*', ['Music','Violence','Religion','All (WC)','All (Z raw)','All (% per 1000)','All (Z rel)'], selection_mode='single',default=['All (Z rel)'], help=stats_desc)
+
+    with filter_cols[2]:
+        state.search = st.text_input('*Search by title, author, or BBIP ID*')
+
+    filter_inv()
+
+    st.write(f'***{len(state.inventory)} titles displayed***')
+
+    clicked = st.dataframe(state.inventory, use_container_width=True, hide_index=True, key="bk_display", selection_mode="single-row", on_select="rerun")
+
+    if clicked:
+        return clicked
 
 def item_head():
     head_cols = st.columns(2)
     with head_cols[0]:
         st.header(f'{state.book_md.Title}')
         st.write(f'*{state.book_md.Author} ({state.book_md.Date})*')
-        st.write(f'BBIP ID: {state.book_md.BBIP_ID}')
+        st.write(f'**BBIP ID**: {state.book_md.BBIP_ID}')
+        if not pd.isnull(state.book_md['Alt. BBIP IDs']):
+            st.write(f'\t*Alternate BBIP IDs:* {state.book_md["Alt. BBIP IDs"]}')
+        if not pd.isnull(state.book_md['40 books']):
+            st.write(':books: *This book is one the 40 Books for 40 Years collection.* :books:')
     with head_cols[1]:
 
         with st.expander('About this data'):
@@ -70,9 +175,9 @@ def get_description():
     st.markdown("""**Sample result sorted by word**:
 
     Format:
-        lemma - (number of occurrences in the text) uses
-            * [a list of each occurrence follows]
-            * word (part of speech) -- sentence in which the word appears
+            lemma - (number of occurrences in the text) uses
+                * [a list of each occurrence follows]
+                * word (part of speech) -- sentence in which the word appears
                 * synset -- synset definition
 
     Example:
@@ -83,48 +188,6 @@ def get_description():
                 * chant.v.01 -- recite with musical intonation; recite as a chant or a psalm
             """)
 
-def set_colors(df):
-
-    tops = natsorted(df[~df.topic.isnull()].topic.unique())
-    state.colorlist = {topic: colorscale[i] for i, topic in enumerate(tops)}
-
-
-# @st.cache_resource
-def display_table():
-
-    sort_top_cols = st.columns(4)
-    with sort_top_cols[0]:
-        state.sort_top = st.selectbox('Sort titles by', state.inventory.columns, key='st')
-    with sort_top_cols[1]:
-        state.order_top = st.radio('Order results', ['Ascending', 'Descending'], key='ot', horizontal=True)
-
-    if 'sort_top' not in state:
-        state.sort_top = 'BBIP_ID'
-    if 'order_top' not in state:
-        state.order_top = 'Ascending'
-    order_top = False if state.order_top == 'Descending' else True
-
-    link = "text-decoration: none; color: inherit;"
-    td = "padding: 0 1em; border: 1px solid #BCBCBC"
-    content = f"""<div id="inv"><table style='border-collapse: collapse;'><thead><tr><th style='{td}'>Title</th><th style='{td}'>Author</th><th style='{td}'>Publication date</th><th style='{td}'>BBIP ID</th>
-    <th style='{td}'>Music</th><th style='{td}'>Violence</th><th style='{td}'>Religion</th></row></thead><tbody>"""
-
-    state.inventory = state.inventory.sort_values(by=state.sort_top, ascending=order_top)
-
-    for i,r in state.inventory.iterrows():
-
-        row = f"""<tr>
-                <td style='{td}'><a href='#' style='{link}' id='{r.BBIP_ID}'>{r.Title}</a></td>
-                <td style='{td}'>{r.Author}</td>
-                <td style='{td}'>{r.Date}</td>
-                <td style='{td}'><a href='#' style='{link}' id='{r.BBIP_ID}'>{r.BBIP_ID}</a></td>
-                <td style='{td}'>{r.music}</td>
-                <td style='{td}'>{r.violence}</td>
-                <td style='{td}'>{r.religion}</td></tr>"""
-
-        content += row
-    content = content + '</tbody></table></div>'
-    return content
 
 # @st.cache_resource
 def get_wc(weighted_txt):
@@ -178,28 +241,56 @@ def topic_graph(t, df):
 
     return fig
 
+def book_stats(t):
+
+    cts = pd.DataFrame(state.book_md[[c for c in state.book_md.index if t.lower() in c.lower()]]).T
+    cts.columns = ['Word count (raw)','Sentence count','Z-score (raw)', 'Frequency per 1,000 words','Z-score (relative)']
+    cts = cts.T
+    cts.columns = ['value']
+
+    summ = ""
+    for i,r in cts.iterrows():
+        if isinstance(r.value, float):
+            summ += f'* **{i}:** {r.value:.3f}\n'
+        else:
+            summ += f'* **{i}:** {r.value}\n'
+
+    st.write(summ)
+
 def book_sum(t, df):
 
     bk_sum_1, bk_sum_2 = st.columns(2)
 
     def top_cts(tdf):
         top_all = len(tdf)
-        top_unique = len(tdf.sentence_ID.unique())
-        p = (top_unique / state.book_md.total_sents) * 100
+        top_unique = len(tdf.sentence_ID.unique()) + 1
+        p = (top_unique / state.book_md['Total sentences']) * 100
         return top_all, top_unique, p
 
-    with bk_sum_1:
 
-        if t in df.topic.unique():
+
+    if t in df.topic.unique():
+        with bk_sum_1:
             with st.container(border=True):
                 tdf = df[df.topic==t]
                 top_all, top_unique, p = top_cts(tdf)
                 st.markdown(f'*Topic appears **{top_all:,}** times in **{top_unique:,}** sentences, or **{p:.1f}%** of the text.*')
 
-        else:
+                book_stats(t)
+        with bk_sum_2:
+            with st.expander('About the statistics'):
+                st.markdown("""
+            **Word count (raw)** - The raw count of words matching the topic within the text.\n
+            **Sentence count** - The number of sentences within the text containing the topic.\n
+            **Z-score (raw)** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
+            **Frequency per 1,000 words** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
+            **Z-score (relative)** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset.\n""")
+
+    else:
+        with bk_sum_1:
             with st.container(border=True):
-                st.write(f'Word count: **{state.book_md.wordcount:,}**')
-                all_sents = state.book_md.total_sents
+                st.write(f'Word count: **{state.book_md["Total words"]:,}**')
+                all_sents = state.book_md['Total sentences']
                 st.write(f'Sentence count: **{all_sents:,}**')
 
                 tdf = df[~df.topic.isnull()]
@@ -212,7 +303,6 @@ def book_sum(t, df):
                 st.write(top_list)
 
 
-    if t == '*':
 
         with bk_sum_2:
 

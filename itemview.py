@@ -13,7 +13,7 @@ if 'bbipid' not in state:
 if st.button('Return to main page'):
     st.switch_page('home.py')
 
-state.book_md = state.inventory[state.inventory.BBIP_ID==state.bbipid].iloc[0]
+state.book_md = state.inventory_full[state.inventory_full.BBIP_ID==state.bbipid].iloc[0]
 tools.item_head()
 
 df = pd.read_csv(f'data/{state.bbipid}')
