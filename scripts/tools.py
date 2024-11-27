@@ -284,7 +284,7 @@ def book_sum(t, df):
             **Sentence count** - The number of sentences within the text containing the topic.\n
             **Z-score (raw)** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
             **Frequency per 1,000 words** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
-            **Z-score (relative)** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset.\n""")
+            **Z-score (relative)** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset. This should be the best metric to compare texts to each other.\n""")
 
     else:
         with bk_sum_1:
