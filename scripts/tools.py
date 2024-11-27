@@ -103,6 +103,7 @@ def filter_inv():
     # topics
     if 'topics' not in state:
         state.topics = 'All (Z rel)'
+
     if 'All' in state.topics:
         stat = re.findall(r'\((.*?)\)', state.topics)[0]
         state.display_cols = state.default_cols + [f'Music ({stat})',f'Religion ({stat})',f'Violence ({stat})']
