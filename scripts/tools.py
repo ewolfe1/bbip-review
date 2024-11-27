@@ -103,6 +103,12 @@ def filter_inv():
     # topics
     if 'topics' not in state:
         state.topics = 'All (Z rel)'
+    # error handling hack
+    try:
+        if 'All' in state.topics:
+            pass
+    except (TypeError, KeyError) as e:
+        state.topics = 'All (Z rel)'
 
     if 'All' in state.topics:
         stat = re.findall(r'\((.*?)\)', state.topics)[0]
