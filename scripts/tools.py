@@ -72,6 +72,7 @@ def get_data():
     # calculate frequencies
     df = get_stats(df)
 
+    # update default col headers
     col_map = {'total_words':'Total words', 'total_sents':'Total sentences','topic_words':'Topic words (all)','topic_sents':'Topic sentences (all)','religion_words':'Religion (WC)','religion_sents':'Religion (SC)','violence_words':'Violence (WC)','violence_sents':'Violence (SC)','music_words':'Music (WC)','music_sents':'Music (SC)','alt_BBIP_IDs':'Alt. BBIP IDs','Coll_40_books':'40 books'}
     df.rename(columns=col_map, inplace=True)
 
