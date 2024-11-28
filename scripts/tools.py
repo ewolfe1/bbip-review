@@ -121,6 +121,11 @@ def filter_inv():
 # @st.cache_resource
 def display_table():
 
+    stats_desc = """**WC** - The raw count of words matching the topic within the text.\n
+**Z raw** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
+**% per 1,000** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
+**Z rel** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset.\n"""
+
     filter_cols = st.columns(3)
 
     with filter_cols[0]:
@@ -131,11 +136,6 @@ def display_table():
 
     with filter_cols[2]:
         state.display40 = st.pills('*Texts to display*', ['All titles', '40 books'], default=['All titles'], key='dt', selection_mode='single')
-
-    stats_desc = """**WC** - The raw count of words matching the topic within the text.\n
-**Z raw** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
-**% per 1,000** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
-**Z rel** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset.\n"""
 
     filter_inv()
 
