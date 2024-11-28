@@ -121,19 +121,20 @@ def filter_inv():
 def display_table():
 
     filter_cols = st.columns(3)
+
     with filter_cols[0]:
+        state.topics = st.pills('*Topic stats to display*', ['Music','Violence','Religion','All (WC)','All (Z raw)','All (% per 1000)','All (Z rel)'], selection_mode='single',default=['All (Z rel)'], help=stats_desc)
+
+    with filter_cols[1]:
+        state.search = st.text_input('*Search by title, author, or BBIP ID*')
+
+    with filter_cols[2]:
         state.display40 = st.pills('*Texts to display*', ['All titles', '40 books'], default=['All titles'], key='dt', selection_mode='single')
 
     stats_desc = """**WC** - The raw count of words matching the topic within the text.\n
 **Z raw** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
 **% per 1,000** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
 **Z rel** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset.\n"""
-
-    with filter_cols[1]:
-        state.topics = st.pills('*Topic stats to display*', ['Music','Violence','Religion','All (WC)','All (Z raw)','All (% per 1000)','All (Z rel)'], selection_mode='single',default=['All (Z rel)'], help=stats_desc)
-
-    with filter_cols[2]:
-        state.search = st.text_input('*Search by title, author, or BBIP ID*')
 
     filter_inv()
 
