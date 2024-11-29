@@ -92,7 +92,7 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002892,Even in Paradise,"Nunez, Elizabeth",2016,91379,7304,542,460,182,153,149,139,211,180,,
 60002859,Beyond the Limbo Silence,"Nunez, Elizabeth",1998,98760,9103,618,524,248,229,223,185,147,135,,
 60001042,Banjo,"McKay, Claude",1929,94763,6361,709,586,129,127,169,155,411,328,,Y
-60002850,Honey Girl,"Rogers, Morgan",2021,83944,8784,1074,1026,852,839,125,119,97,89,,
+60002850,Honey Girl,"Rogers, Morgan",2021,83944,8784,337,318,115,115,125,119,97,89,,
 60002857,Things Fall Apart,"Achebe, Chinua",1958,52149,3794,619,520,310,274,181,168,128,111,,
 60001073,Love,"Morrison, Toni",2003,62128,4959,360,325,99,98,136,128,125,110,,Y
 60000703,The Sport of the Gods,"Dunbar, Paul Laurence",1901,156542,8629,1267,1020,370,337,325,298,572,467,60000116,Y
@@ -234,6 +234,7 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002766,The Look of Love,"Jackson, Monica",1999,66134,6495,224,215,73,72,96,97,55,53,,
 60002795,Falling for You,"Louise, Kim",2002,91596,9342,473,451,91,90,260,249,122,119,,
 60002735,It's a Love Thang,"Laudat, Reon",2002,107382,9595,522,493,102,98,230,227,190,178,,
+60002935,Jolie's Surrender,"Martin-Arnold, Edwina",2002,81035,7187,425,399,164,157,123,122,138,131,,
 60002794,Love's Celebration,"Jackson, Monica",1998,55462,4731,318,289,137,124,117,110,64,61,,
 60002758,The Big Mango: A Novel,"Kelley, Norman",2000,90960,7458,740,654,196,180,329,304,215,196,,
 60002932,The Confessions of Frannie Langton,"Collins, Sara",2019,107455,10383,492,459,157,149,253,241,82,80,,
@@ -271,4 +272,3 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002883,No Longer at Ease,"Achebe, Chinua",1960,50214,4107,344,301,176,156,57,56,111,101,,
 60001266,Life on Wheels,"Tillman, Carolyn",1975,30565,2645,108,105,47,47,39,39,22,22,,Y
 60002884,Devil on the Cross,"Thiong'o, Ngugi wa",1980,105705,7246,960,777,393,345,227,208,340,255,,
-60002870,In the Shadow of the Peacock,"Edwards-Yearwood, Grace",1988,83944,8784,337,318,115,115,125,119,97,89,,
