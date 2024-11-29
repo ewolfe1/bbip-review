@@ -124,10 +124,12 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002754,While We Were Dating,"Guillory, Jasmine",2021,104243,9162,341,324,158,156,60,61,123,115,60001918,
 60002908,Prospero's Daughter: A Novel,"Nunez, Elizabeth",2006,111184,9248,605,519,204,183,228,209,173,146,,
 60002796,Eve's Prescription,"Martin-Arnold, Edwina",2000,78890,6778,418,389,116,111,183,171,119,114,,
+60002930,We Ride Upon Sticks,"Barry, Quan",2020,135101,9418,736,638,237,213,179,177,320,280,,
 60002791,And All Our Wounds Forgiven,"Lester, Julius",1994,66816,6167,490,434,155,147,242,212,93,88,,
 60002765,Dr. Feelgood,"Keyes, Christian",2016,65796,5845,262,240,102,99,95,87,65,63,,
 60001374,Native Son,"Wright, Richard",1940,152696,13583,995,867,204,192,648,569,143,136,,Y
 60003286,Stay With Me,"Abedayo, Ayobami",2017,77986,5951,410,372,178,166,132,123,100,94,,Y
+60002931,The Book of Not,"Dangarembga, Tsitsi",2006,89699,5909,435,385,95,91,190,178,150,135,,
 60002764,Bloodchild and Other Stories,"Butler, Octavia E.",1995,34799,3386,191,176,43,43,125,116,23,24,,
 60002790,Known to Evil,"Mosley, Walter",2010,85363,7804,443,418,106,99,206,197,131,129,60001960,
 60002797,Silver Sparrow,"Jones, Tayari",2011,94501,8109,366,345,144,139,96,95,126,119,60001964,
@@ -202,9 +204,12 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002919,Rachel's Blue,"Mda, Zakes",2014,65675,4978,517,444,98,91,149,148,270,224,,
 60002773,Second Time Around,"Larence, Anna",1997,83649,6677,321,296,94,90,141,134,86,81,,
 60002787,It's Not All Downhill From Here,"McMillan, Terry",2020,108106,9794,389,348,176,160,80,80,133,123,,
+60002926,The Devil in Silver,"LaValle, Victor D.",2012,136713,13738,510,487,201,199,192,187,117,116,60000987,
+60002928,Fifty Words for Rain,"Lemmie, Asha",2020,116543,12091,663,621,207,205,171,163,285,265,,
 60002789,Night Secrets,"Johnson, Doris",1998,110867,9214,535,496,189,183,179,177,167,153,,
 60002917,Now Lila Knows,"Nunez, Elizabeth",2022,61650,6104,327,283,108,94,129,121,90,79,,
 60000886,Cotton Comes to Harlem,"Himes, Chester B.",1965,65686,5324,522,454,183,160,276,260,63,56,,Y
+60002929,No Heaven for Good Boys,"Bush, Keisha",2020,95558,8698,657,596,308,278,184,183,165,154,,
 60001300,Jubilee,"Walker, Margaret",1966,157219,9798,980,782,427,354,352,308,201,154,,Y
 60002916,Song of the Water Saints,"Rosario, Nelly",2002,66142,4770,527,449,220,191,162,151,145,133,,
 60002788,Fragment in the Sand,"Lee, Annetta P.",2003,110204,9582,680,643,357,348,229,223,94,90,,
@@ -213,6 +218,7 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002786,Ties That Tether,"Igharo, Jane",2020,77809,8971,323,295,104,101,85,82,134,118,,
 60002918,Disgrace,"Coetzee, J.M.",1999,67407,6548,416,368,112,105,125,122,179,150,,
 60002772,Freedom Run,"Keaton, Rina",1994,46416,4690,408,381,229,220,107,107,72,71,,
+60002927,Everfair,"Shawl, Nisi",2016,115864,10002,676,623,219,207,246,234,211,197,,
 60002775,All That and a Bag of Chips,"Lee, Darrien",2001,134177,12991,554,516,178,170,142,141,234,214,,
 60000680,The Catacombs,"Demby, William",1965,60760,3372,668,477,318,243,182,159,168,132,60000098,Y
 60002781,Life of Death,"Lewis, Philip",1993,94272,6844,643,517,127,101,357,322,159,127,,
@@ -223,12 +229,14 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002905,Boundaries,"Nunez, Elizabeth",2011,74499,6164,361,330,189,173,87,81,85,83,,
 60002750,Sap Rising,"Lincoln, Christine",2001,43721,3100,251,220,118,109,59,57,74,68,,
 60002759,Fire in the Canes,"Lovell, Glenville",1995,79306,6991,376,337,130,121,147,139,99,86,,
+60002933,Nehanda,"Vera, Yvonne",1993,32167,2415,244,209,55,53,84,78,105,90,,
 60002792,Miracle at St. Anna,"McBride, James",2002,81634,5963,874,732,474,440,303,260,97,83,,
 60002766,The Look of Love,"Jackson, Monica",1999,66134,6495,224,215,73,72,96,97,55,53,,
 60002795,Falling for You,"Louise, Kim",2002,91596,9342,473,451,91,90,260,249,122,119,,
 60002735,It's a Love Thang,"Laudat, Reon",2002,107382,9595,522,493,102,98,230,227,190,178,,
 60002794,Love's Celebration,"Jackson, Monica",1998,55462,4731,318,289,137,124,117,110,64,61,,
 60002758,The Big Mango: A Novel,"Kelley, Norman",2000,90960,7458,740,654,196,180,329,304,215,196,,
+60002932,The Confessions of Frannie Langton,"Collins, Sara",2019,107455,10383,492,459,157,149,253,241,82,80,,
 60002767,Black Leopard Red Wolf,"James, Marlon",2019,227469,20611,2179,1898,759,705,1232,1085,188,159,60002242,
 60002904,This is How You Lose Her,"Diaz, Junot",2012,49731,4060,239,222,114,109,83,81,42,41,,
 60002751,Beyond the Broken,"Kimbro, Sharisse",2013,75999,6022,200,189,66,64,66,65,68,65,,
@@ -263,4 +271,4 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60002883,No Longer at Ease,"Achebe, Chinua",1960,50214,4107,344,301,176,156,57,56,111,101,,
 60001266,Life on Wheels,"Tillman, Carolyn",1975,30565,2645,108,105,47,47,39,39,22,22,,Y
 60002884,Devil on the Cross,"Thiong'o, Ngugi wa",1980,105705,7246,960,777,393,345,227,208,340,255,,
-60002870,In the Shadow of the Peacock,"Edwards-Yearwood, Grace",1988,99397,8163,468,425,101,98,146,138,221,197,,
+60002870,In the Shadow of the Peacock,"Edwards-Yearwood, Grace",1988,83944,8784,337,318,115,115,125,119,97,89,,
