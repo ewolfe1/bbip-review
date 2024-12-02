@@ -1,8 +1,10 @@
 streamlit
 pandas
+numpy
 natsort
 st_click_detector
 plotly
+scipy
 matplotlib
 wordcloud
 colorlover

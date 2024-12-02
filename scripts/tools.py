@@ -8,9 +8,11 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import plotly.graph_objects as go
+from scipy.stats import norm
+import numpy as np
 from natsort import natsorted
 import colorlover as cl
-colorscale = cl.scales['6']['qual']['Set2']
+colorscale = cl.scales['10']['qual']['Paired']
 
 def init():
 
@@ -84,7 +86,7 @@ def get_data():
 def set_colors(df):
 
     tops = natsorted(df[~df.topic.isnull()].topic.unique())
-    state.colorlist = {topic: colorscale[i] for i, topic in enumerate(tops)}
+    state.colorlist = {topic: colorscale[i*2] for i, topic in enumerate(tops)}
 
 def filter_inv():
 
@@ -250,6 +252,57 @@ def topic_graph(t, df):
 
     return fig
 
+# @st.cache_resource
+def plot_z_rel(t):
+
+    df = state.inventory
+    t = t.capitalize()
+
+    mean = df[f'{t} (Z rel)'].mean()
+    std_dev = df[f'{t} (Z rel)'].std()
+
+    book_z_score = state.book_md.loc[f'{t} (Z rel)']
+
+    # Determine the range for the bell curve based on the data
+    min_z = df[f'{t} (Z rel)'].min()
+    max_z = df[f'{t} (Z rel)'].max()
+    x = np.linspace(min_z - 1, max_z + 1, 100)  # Extend the range slightly beyond min and max
+    # Calculate the corresponding y values for the normal distribution
+    y = norm.pdf(x, mean, std_dev)
+
+    fig = go.Figure()
+
+    # Add histogram of z-scores
+    fig.add_trace(go.Histogram(x=df[f'{t} (Z rel)'],
+        histnorm='probability density',  # Normalize to get a density
+        opacity=0.6,marker=dict(color='lightgrey')))
+
+    # Add the bell curve
+    fig.add_trace(go.Scatter(x=x,y=y,mode='lines',
+        line=dict(color=colorscale[9], width=2)))
+
+    # Highlight the specific z-score
+    fig.add_trace(go.Scatter(x=[book_z_score],
+        y=[norm.pdf(book_z_score, mean, std_dev)],  # Get the y value for the bell curve
+        mode='markers+text',marker=dict(color=colorscale[7], size=8),
+        text=['Z-score: {:.2f}'.format(book_z_score)],textposition='top center'))
+
+    # Add a vertical line for the highlighted z-score
+    fig.add_trace(go.Scatter(x=[book_z_score, book_z_score],
+        y=[0, norm.pdf(book_z_score, mean, std_dev)],  # Extend the line to the bell curve
+        mode='lines',line=dict(color=colorscale[7], dash='dash')))
+
+    # Update layout
+    fig.update_layout(
+        title=f'Relative Z-score for this text: {book_z_score:.3f}',
+        xaxis_title=f'Relative Z-scores for {t} in all processed texts',
+        yaxis_title='Distribution',
+        barmode='overlay',  # Overlay the histogram and bell curve
+        showlegend=False
+    )
+
+    return fig
+
 def book_stats(t):
 
     cts = pd.DataFrame(state.book_md[[c for c in state.book_md.index if t.lower() in c.lower()]]).T
@@ -276,8 +329,6 @@ def book_sum(t, df):
         p = (top_unique / state.book_md['Total sentences']) * 100
         return top_all, top_unique, p
 
-
-
     if t in df.topic.unique():
         with bk_sum_1:
             with st.container(border=True):
@@ -286,14 +337,18 @@ def book_sum(t, df):
                 st.markdown(f'*Topic appears **{top_all:,}** times in **{top_unique:,}** sentences, or **{p:.1f}%** of the text.*')
 
                 book_stats(t)
+
+                with st.expander('About the statistics'):
+                    st.markdown("""
+                **Word count (raw)** - The raw count of words matching the topic within the text.\n
+                **Sentence count** - The number of sentences within the text containing the topic.\n
+                **Z-score (raw)** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
+                **Frequency per 1,000 words** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
+                **Z-score (relative)** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset. This should be the best metric to compare texts to each other.\n""")
         with bk_sum_2:
-            with st.expander('About the statistics'):
-                st.markdown("""
-            **Word count (raw)** - The raw count of words matching the topic within the text.\n
-            **Sentence count** - The number of sentences within the text containing the topic.\n
-            **Z-score (raw)** - The z-score of the raw word count, which standardizes the raw topic count by comparing it to the mean and standard deviation of all raw counts across the dataset.\n
-            **Frequency per 1,000 words** - The percentage of topic occurrences normalized to 1,000 words, calculated as (topic count/total word count) × 1,000.\n
-            **Z-score (relative)** - The z-score of the relative word count, which standardizes the proportion of topic words to total words by comparing it to the mean and standard deviation of all relative word counts across the dataset. This should be the best metric to compare texts to each other.\n""")
+
+            # relative z scores
+            st.write(plot_z_rel(t))
 
     else:
         with bk_sum_1:
@@ -326,7 +381,7 @@ def book_sum(t, df):
             barcolors = [state.colorlist.get(top, colorscale[-1]) for top in topics]
             fig = go.Figure(data=[go.Bar(x=topics, y=counts, marker_color=barcolors)])
             fig.update_layout(
-                title='Topic count',
+                title='Topic count (Raw)',
                 xaxis_title='Topic',
                 yaxis_title='Number of sentences',
             )
