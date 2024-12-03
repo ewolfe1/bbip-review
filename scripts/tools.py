@@ -256,6 +256,7 @@ def topic_graph(t, df):
 def plot_z_rel(t):
 
     df = state.inventory_full
+    st.write(len(df))
     t = t.capitalize()
 
     mean = df[f'{t} (Z rel)'].mean()
@@ -266,7 +267,7 @@ def plot_z_rel(t):
     # Determine the range for the bell curve based on the data
     min_z = df[f'{t} (Z rel)'].min()
     max_z = df[f'{t} (Z rel)'].max()
-    x = np.linspace(min_z - 1, max_z + 1, 100)  # Extend the range slightly beyond min and max
+    x = np.linspace(min_z - 1, max_z + 1, 100)  # Extend range beyond min / max
     # Calculate the corresponding y values for the normal distribution
     y = norm.pdf(x, mean, std_dev)
 
