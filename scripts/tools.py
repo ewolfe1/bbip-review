@@ -186,10 +186,10 @@ def get_description():
     st.markdown("""**Sample result sorted by word**:
 
     Format:
-            lemma - (number of occurrences in the text) uses
-                * [a list of each occurrence follows]
-                * word (part of speech) -- sentence in which the word appears
-                * synset -- synset definition
+        lemma - (number of occurrences in the text) uses
+            * [a list of each occurrence follows]
+            * word (part of speech) -- sentence in which the word appears
+            * synset -- synset definition
 
     Example:
         chant - (2) uses
