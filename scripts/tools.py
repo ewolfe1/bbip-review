@@ -255,7 +255,7 @@ def topic_graph(t, df):
 # @st.cache_resource
 def plot_z_rel(t):
 
-    df = state.inventory
+    df = state.inventory_full
     t = t.capitalize()
 
     mean = df[f'{t} (Z rel)'].mean()
