@@ -360,15 +360,14 @@ def book_sum(t, df):
     else:
         with bk_sum_1:
 
-
             with st.container(border=True):
                 all_words = state.book_md["Total words"]
                 all_sents = state.book_md['Total sentences']
                 st.write(f"""Word count: **{all_words:,}**\nSentence count: **{all_sents:,}**""")
 
-                rank = (state.inventory_full['total_words'] < all_words).mean() * 100
-                longer = (state.inventory_full['total_words'] > all_words).sum()
-                shorter = (state.inventory_full['total_words'] < all_words).sum()
+                rank = (state.inventory_full['Total words'] < all_words).mean() * 100
+                longer = (state.inventory_full['Total words'] > all_words).sum()
+                shorter = (state.inventory_full['Total words'] < all_words).sum()
                 st.write(f'*Based on word count, this text is in the **{ordinal(int(rank))}** percentile for length. In comparison, **{shorter}** texts are shorter, and **{longer}** texts are longer.*')
 
                 tdf = df[~df.topic.isnull()]
