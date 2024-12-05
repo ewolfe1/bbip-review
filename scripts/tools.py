@@ -319,6 +319,13 @@ def book_stats(t):
 
     st.write(summ)
 
+def ordinal(n):
+    if 10 <= n % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
+    return f"{n}{suffix}"
+
 def book_sum(t, df):
 
     bk_sum_1, bk_sum_2 = st.columns(2)
@@ -352,10 +359,17 @@ def book_sum(t, df):
 
     else:
         with bk_sum_1:
+
+
             with st.container(border=True):
-                st.write(f'Word count: **{state.book_md["Total words"]:,}**')
+                all_words = state.book_md["Total words"]
                 all_sents = state.book_md['Total sentences']
-                st.write(f'Sentence count: **{all_sents:,}**')
+                st.write(f"""Word count: **{all_words:,}**\nSentence count: **{all_sents:,}**""")
+
+                rank = (state.inventory_full['total_words'] < all_words).mean() * 100
+                longer = (state.inventory_full['total_words'] > all_words).sum()
+                shorter = (state.inventory_full['total_words'] < all_words).sum()
+                st.write(f'*Based on word count, this text is in the **{ordinal(int(rank))}** percentile for length. In comparison, **{shorter}** texts are shorter, and **{longer}** texts are longer.*')
 
                 tdf = df[~df.topic.isnull()]
                 top_all, top_unique, p = top_cts(tdf)
@@ -487,16 +501,3 @@ def topic_display(t, df):
             else:
                 with st.expander(f"***{n}*** - ***({len(g)}) uses***"):
                     list_word(g)
-
-                # with st.expander(f"***{n}*** - {g['definition'].iloc[0]} - ***({len(g)}) uses***"):
-                #     tbl = f"""| Word | Part of speech | Sentence |\n| -- | -- | -- |\n"""
-                #     for i,r in g.iterrows():
-                #         tbl += f"| {r.word.lower()} | {r.POS_tag.lower()} | {r.context} |\n"
-                #     st.write(tbl, unsafe_allow_html=True)
-
-            # else:
-            #     with st.expander(f"***{n}*** - ***({len(g)}) uses***"):
-            #         tbl = f"""| Word | Part of speech | Sentence |\n| -- | -- | -- |\n"""
-            #         for i,r in g.iterrows():
-            #             tbl += f"| {r.word.lower()} | {r.POS_tag.lower()} | {r.context} |\n"
-            #         st.write(tbl, unsafe_allow_html=True)
