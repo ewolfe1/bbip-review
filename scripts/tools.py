@@ -364,7 +364,7 @@ def book_sum(t, df):
                 all_words = state.book_md["Total words"]
                 all_sents = state.book_md['Total sentences']
                 st.write(f"""Word count: **{all_words:,}**\n
-                Sentence count: **{all_sents:,}**""")
+Sentence count: **{all_sents:,}**""")
 
                 rank = (state.inventory_full['Total words'] < all_words).mean() * 100
                 longer = (state.inventory_full['Total words'] > all_words).sum()
