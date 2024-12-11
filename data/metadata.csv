@@ -492,4 +492,5 @@ BBIP_ID,Title,Author,Date,total_words,total_sents,topic_words,topic_sents,religi
 60003185,Chioniso and Other Stories,"Chinodya, Shimmer",2012,63188,5151,517,413,324,261,89,86,104,91,,
 60003182,At the Bottom of the River,"Kincaid, Jamaica",1983,18676,1128,80,67,15,14,23,23,42,35,,
 60003176,Vagabonds!,"Osunde, Eloghosa",2022,95389,7868,882,783,577,521,160,155,145,131,,
-60003190,The Wind From Nowhere,"Micheaux, Oscar",1941,136770,9904,600,516,205,188,261,226,134,126,60000277,
+60003190,The Wind From Nowhere,"Micheaux, Oscar",1941,136770,9904,600,516,205,188,261,226,134,126,60000277.0,
+60000744,The Conjure-Man Dies: A Mystery Tale of Dark Harlem,"Fisher, Rudolph",1932,75151,6476,421,379,126,118,187,176,108,96,,
