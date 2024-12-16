@@ -171,6 +171,5 @@ sentence_ID,word,lemma,POS_tag,fine_POS_tag,topic_synset,synset,topic,original_s
 3836,slug,slug,NOUN,NN,bullet.n.01,bullet.n.01,violence,weapon.n.01,hyponyms,a projectile that is fired from a gun,,"['bullet', 'slug']","“ Think about a slug of whisky , ” I advised ."
 3861,dance,dance,NOUN,NN,dance.n.01,dance.n.01,music,dance.n.01,original,an artistic form of nonverbal communication,,['dance'],He looked like he was doing some crazy dance .
 3871,danced,dance,VERB,VBD,dance.v.01,dance.v.01,music,dance.v.01,original,move in a graceful and rhythmical way,The young girl danced into the room,['dance'],The head sagged and the feet danced to every movement of the gondola .
-3904,Gabriel,gabriel,PROPN,NNP,gabriel.n.01,gabriel.n.01,religion,bible.n.01,in_topic_domains,(Bible) the archangel who was the messenger of God,,['Gabriel'],“ Who ’d you think it was — Gabriel ?
 4020,bumps,bump,NOUN,NNS,bump.n.01,bump.n.01,violence,injury.n.01,hyponyms,a lump on the body caused by a blow,,['bump'],"With the kid ’s lifeless head on my knees , to ease the bumps , I watched Step in the doorway ."
 4037,punch,punch,VERB,VB,punch.v.01,punch.v.01,violence,punch.v.01,original,deliver a quick blow to,he punched me in the stomach,"['punch', 'plug']",“ Shut up or I ’ll punch you one . ”

@@ -1,5 +1,4 @@
 sentence_ID,word,lemma,POS_tag,fine_POS_tag,topic_synset,synset,topic,original_synset,relation,definition,example,lemmas,context
-1,Gabriel,gabriel,PROPN,NNP,gabriel.n.01,gabriel.n.01,religion,bible.n.01,in_topic_domains,(Bible) the archangel who was the messenger of God,,['Gabriel'],A NOVEL BY Gabriel Bump ALGONQUIN BOOKS OF CHAPEL HILL 2020
 1,Bump,bump,PROPN,NNP,bump.n.01,bump.n.01,violence,injury.n.01,hyponyms,a lump on the body caused by a blow,,['bump'],A NOVEL BY Gabriel Bump ALGONQUIN BOOKS OF CHAPEL HILL 2020
 11,friends,friend,NOUN,NNS,friend.n.05,friend.n.05,religion,religion.n.02,hyponyms,a member of the Religious Society of Friends founded by George Fox (the Friends have never called themselves Quakers),,"['Friend', 'Quaker']",“ You ’re friends ! ”
 13,church,church,NOUN,NN,church.n.01,church.n.01,religion,religion.n.02,hyponyms,one of the groups of Christians who have their own beliefs and forms of worship,,"['church', 'Christian_church']",“ You go to church ! ”
