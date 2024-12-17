@@ -169,7 +169,7 @@ def get_description():
     st.markdown("""**Definitions:**
 
 * **synset:** a group of words that share the same meaning ("sense") in a specific context. Example: the synset for the sense "bank as a financial institution" includes the words "bank," "depository," and "savings bank." These take the form of "word.part_of_speech.definition_num", e.g. "bank.n.01"
-* **lemma:** the base or dictionary form of a word, which represents all its inflected forms. Example: the lemma "run" represents the words "run", "runs," "ran," and "running. Lemmas are used to identify synsets in this context.
+* **lemma:** the base or dictionary form of a word, which represents all its inflected forms. Example: the lemma "run" represents the words "run," "runs," "ran," and "running."" Lemmas are used to identify synsets in this context.
 * **word:** the word as it appears in the text""")
 
     st.markdown("""**Sample result sorted by synset**:
